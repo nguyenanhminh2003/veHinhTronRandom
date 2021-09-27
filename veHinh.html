@@ -12,11 +12,15 @@
         x;
         y;
         radius;
+        speedX;
+        speedY;
 
-        constructor(x, y, radius) {
+        constructor(x, y, radius, speedX, speedY) {
             this.x = x;
             this.y = y;
             this.radius = radius;
+            this.speedX = speedX;
+            this.speedY = speedY;
         }
 
         getRadius() {
@@ -29,7 +33,7 @@
 
         draw() {
             let ctx = document.getElementById("myCanvas").getContext("2d");
-            ctx.clearRect(0, 0, 300, 500);
+            ctx.clearRect(0, 0, 1000, 800);
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
             ctx.fill();
@@ -37,26 +41,32 @@
         }
 
         moveLeft() {
-            this.x -= 10;
+            this.x -= this.speedX;
         }
 
         moveDown() {
-            this.y += 10
+            this.y += this.speedY;
+            this.check()
+        }
+        check(){
+            if (this.y < 0 || this.y > 800 -this.radius){
+                this.speedY = - this.speedY;
+            }
+            if (this.x < 0 || this.x > 800 - this.radius){
+                this.speedX = -this.speedX;
+            }
         }
 
     }
 
-    let x = Math.random() * 300;
-    let y = Math.random() * 500;
-    let circle = new Circle(x, y, 15);
-    circle.draw()
-
+    let circle = new Circle(30, 30, 15, 2,2);
     moveCircle();
 
     function moveCircle() {
         circle.moveDown();
+        circle.moveLeft();
         circle.draw();
-        setTimeout(moveCircle, 200)
+        requestAnimationFrame(moveCircle)
     }
 
 
