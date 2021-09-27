@@ -29,30 +29,34 @@
 
         draw() {
             let ctx = document.getElementById("myCanvas").getContext("2d");
-            ctx.clearRect(0,0,300,500);
+            ctx.clearRect(0, 0, 300, 500);
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
             ctx.fill();
             ctx.closePath();
         }
-        moveLeft(){
-            this.x -=10;
+
+        moveLeft() {
+            this.x -= 10;
         }
-        moveDown(){
-            this.y +=10
+
+        moveDown() {
+            this.y += 10
         }
 
     }
-    for (let i = 0; i <=10; i++){
-        let x = Math.random()* 300;
-        let y = Math.random()*500;
-        let circle =  new Circle(x,y,15);
-        circle.draw()
 
-        function moveCircle(){
-            circle.moveDown();
-            circle.draw();
-        }
+    let x = Math.random() * 300;
+    let y = Math.random() * 500;
+    let circle = new Circle(x, y, 15);
+    circle.draw()
+
+    moveCircle();
+
+    function moveCircle() {
+        circle.moveDown();
+        circle.draw();
+        setTimeout(moveCircle, 200)
     }
 
 
