@@ -5,6 +5,7 @@
     <title>Vẽ Hình tròn</title>
 </head>
 <canvas id="myCanvas" width="1000px" height="800" style="border: 1px solid"></canvas>
+<button onclick="moveCircle()">clicjk</button>
 <body>
 <script>
     class Circle {
@@ -28,10 +29,17 @@
 
         draw() {
             let ctx = document.getElementById("myCanvas").getContext("2d");
+            ctx.clearRect(0,0,300,500);
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
             ctx.fill();
             ctx.closePath();
+        }
+        moveLeft(){
+            this.x -=10;
+        }
+        moveDown(){
+            this.y +=10
         }
 
     }
@@ -40,6 +48,11 @@
         let y = Math.random()*500;
         let circle =  new Circle(x,y,15);
         circle.draw()
+
+        function moveCircle(){
+            circle.moveDown();
+            circle.draw();
+        }
     }
 
 
